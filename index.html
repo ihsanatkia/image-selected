@@ -176,19 +176,12 @@
     
     <script>
 
+    //  Pada saat document uda beres di load, lakukan semua hal di dalam kurung.
     jQuery(document).ready(function($) {
 
-        var removeItem = function(e) {
-            e.preventDefault();
-            var id = $( this ).attr('choiceid');
-            $( '#item-choice .checkbox #' + id ).parent().show();
-            $( this ).remove();
-        };
+        //  Di sini, kita mw declare semua fungsi yang kita butuhkan.
 
-        var countItem = function() {
-            return $( '#choiced .checkbox' ).length;
-        };
-
+        //  Pertama, gw mw fungsi yg bisa select item. Item yg gw select, musti dikopi k atas.
         var selectItem = function(e) {
             e.preventDefault();
             var item = $( this ).clone();
@@ -200,10 +193,28 @@
             $( '#choiced' ).trigger('item-selected', item);
         };
 
+        //  Kedua, gw mw fungsi yg bisa itung jumlah selected di atas.
+        var countItem = function() {
+            return $( '#choiced .checkbox' ).length;
+        };
+
+        //  Ktiga, gw mw item d atas, klo d klik, ilang. en yg d bawah jd muncul lg.
+        var removeItem = function(e) {
+            e.preventDefault();
+            var id = $( this ).attr('choiceid');
+            $( '#item-choice .checkbox #' + id ).parent().show();
+            $( this ).remove();
+        };
+
+        //  Kalo elemen2 ini di klik, lakukan fungsi selectItem
         $( '#item-choice .checkbox' ).on( 'click', selectItem );
 
+        //  Kalo ada item yg di select, lakukan fungsi ini.
         $( '#choiced' ).on( 'item-selected', function( e, el ) {
+
+            //  Elemen yg di select, klo d klik, di-remove.
             $( '#choiced .checkbox' ).on( 'click', removeItem );
+
         } );
 
     });
