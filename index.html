@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
@@ -76,8 +76,8 @@
                         </div>
 
                         <div class="checkbox checkbox-circle check-success">
-                          <input type="checkbox"  value="1" id="checkbox1">
-                          <label for="checkbox1" class="move-top">
+                          <input type="checkbox"  value="1" id="checkbox2">
+                          <label for="checkbox2" class="move-top">
                             <div class="body_shape_content">
                               <img src="assets/img/img-model-02.jpg" alt="example logo" class="img-" />
                                 
@@ -90,8 +90,8 @@
                         </div>
 
                         <div class="checkbox checkbox-circle check-success">
-                          <input type="checkbox"  value="1" id="checkbox1">
-                          <label for="checkbox1" class="move-top">
+                          <input type="checkbox"  value="1" id="checkbox3">
+                          <label for="checkbox3" class="move-top">
                             <div class="body_shape_content">
                               <img src="assets/img/img-model-03.jpg" alt="example logo" class="img-" />
                                 
@@ -177,36 +177,42 @@
     <script>
 
 
+     
+
      jQuery(document).ready(function($) {
 
        var removeItem = function(e) {
-         e.preventDefault();
-         $( '#choiced' ).empty();
-         $( '#item-choice .checkbox' ).show();
+           e.preventDefault();
+           $( this ).remove();
+           $( '#item-choice .checkbox' ).show();
+       };
+
+       var countItem = function() {
+           return $( '#choiced .checkbox' ).length;
        };
 
        var selectItem = function(e) {
-         e.preventDefault();
-         var item = $( this ).clone();
+           e.preventDefault();
 
-         $( '#choiced' ).empty();
-         $( '#choiced' ).append( item );
-         $( '#item-choice .checkbox' ).show();
-         $( this ).hide();
-         
-         $( '#choiced' ).trigger('item-selected');
-         
+           var item = $( this ).clone();
+
+           if ( countItem() >= 3 ) return false;
+
+           $( '#choiced' ).append( item );
+           $( '#item-choice .checkbox' ).show();
+           $( this ).hide();
+
+           $( '#choiced' ).trigger('item-selected', item);
+
        };
-       
-       var i;
-        $( '#item-choice .checkbox' ).on( 'click', selectItem );
-       
 
-       $( '#choiced' ).on( 'item-selected', function() {
-         $( '#choiced .checkbox' ).on( 'click', removeItem );
+       $( '#item-choice .checkbox' ).on( 'click', selectItem );
+
+       $( '#choiced' ).on( 'item-selected', function( e, el ) {
+           $( '#choiced .checkbox' ).on( 'click', removeItem );
        } );
-       
-     });
+
+    });
 
 
      
