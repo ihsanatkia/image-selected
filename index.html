@@ -78,6 +78,7 @@
                         <div class="checkbox checkbox-circle check-success">
                           <input type="checkbox"  value="1" id="checkbox2">
                           <label for="checkbox2" class="move-top">
+
                             <div class="body_shape_content">
                               <img src="assets/img/img-model-02.jpg" alt="example logo" class="img-" />
                                 
@@ -92,6 +93,7 @@
                         <div class="checkbox checkbox-circle check-success">
                           <input type="checkbox"  value="1" id="checkbox3">
                           <label for="checkbox3" class="move-top">
+
                             <div class="body_shape_content">
                               <img src="assets/img/img-model-03.jpg" alt="example logo" class="img-" />
                                 
@@ -176,7 +178,7 @@
     
     <script>
 
-
+    
      
 
      jQuery(document).ready(function($) {
@@ -212,10 +214,11 @@
            $( '#choiced .checkbox' ).on( 'click', removeItem );
        } );
 
+        $( '#choiced' ).on( 'item-selected', function( e, el ) {
+            $( '#choiced .checkbox' ).on( 'click', removeItem );
+        } );
+
     });
-
-
-     
 
     </script>
   </body>
