@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
@@ -42,6 +42,7 @@
 
                 <div class="card card-default">
                   <div class="card-header ">
+                    <h2>code from sean</h2>
                     <h5>Item your Choice</h5>
                   </div>
                   <div class="input-group body-shape-image">
@@ -77,8 +78,7 @@
 
                         <div class="checkbox checkbox-circle check-success">
                           <input type="checkbox"  value="1" id="checkbox2">
-                          <label for="checkbox2" class="move-top">
-
+                          <label for="checkbox1" class="move-top">
                             <div class="body_shape_content">
                               <img src="assets/img/img-model-02.jpg" alt="example logo" class="img-" />
                                 
@@ -92,8 +92,7 @@
 
                         <div class="checkbox checkbox-circle check-success">
                           <input type="checkbox"  value="1" id="checkbox3">
-                          <label for="checkbox3" class="move-top">
-
+                          <label for="checkbox1" class="move-top">
                             <div class="body_shape_content">
                               <img src="assets/img/img-model-03.jpg" alt="example logo" class="img-" />
                                 
@@ -172,54 +171,34 @@
           display: inline-block;
           width: 300px;
         }
-
-
     </style>
     
     <script>
-
-    
-     
-
-     jQuery(document).ready(function($) {
-
-       var removeItem = function(e) {
-           e.preventDefault();
-           $( this ).remove();
-           $( '#item-choice .checkbox' ).show();
-       };
-
-       var countItem = function() {
-           return $( '#choiced .checkbox' ).length;
-       };
-
-       var selectItem = function(e) {
-           e.preventDefault();
-
-           var item = $( this ).clone();
-
-           if ( countItem() >= 3 ) return false;
-
-           $( '#choiced' ).append( item );
-           $( '#item-choice .checkbox' ).show();
-           $( this ).hide();
-
-           $( '#choiced' ).trigger('item-selected', item);
-
-       };
-
-       $( '#item-choice .checkbox' ).on( 'click', selectItem );
-
-       $( '#choiced' ).on( 'item-selected', function( e, el ) {
-           $( '#choiced .checkbox' ).on( 'click', removeItem );
-       } );
-
+    jQuery(document).ready(function($) {
+        var removeItem = function(e) {
+            e.preventDefault();
+            var id = $( this ).attr('choiceid');
+            $( '#item-choice .checkbox #' + id ).parent().show();
+            $( this ).remove();
+        };
+        var countItem = function() {
+            return $( '#choiced .checkbox' ).length;
+        };
+        var selectItem = function(e) {
+            e.preventDefault();
+            var item = $( this ).clone();
+            $(item).attr( 'choiceid', $(this).find( 'input' ).attr( 'id' ) );
+            $(item).find( 'input' ).removeAttr( 'id' );
+            if ( countItem() >= 3 ) return false;
+            $( '#choiced' ).append( item );
+            $( this ).hide();
+            $( '#choiced' ).trigger('item-selected', item);
+        };
+        $( '#item-choice .checkbox' ).on( 'click', selectItem );
         $( '#choiced' ).on( 'item-selected', function( e, el ) {
             $( '#choiced .checkbox' ).on( 'click', removeItem );
         } );
-
     });
-
     </script>
   </body>
 </html>
